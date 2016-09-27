@@ -13,7 +13,12 @@ require('laravel-elixir-vue');
  |
  */
 
+var fonts = [
+    'node_modules/font-awesome/fonts'
+];
+
 elixir(mix => {
     mix.sass('app.scss')
+       .copy(fonts, 'public/fonts')
        .webpack('app.js');
 });
