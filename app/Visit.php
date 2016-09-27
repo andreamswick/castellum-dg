@@ -8,7 +8,11 @@ class Visit extends Model
 {
 
     protected $fillable = [
-        'start', 'end', 'name'
+        'start', 'end', 'name',
     ];
 
+    public function users()
+    {
+        return $this->belongsToMany('App\User');
+    }
 }

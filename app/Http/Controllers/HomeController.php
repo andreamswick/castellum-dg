@@ -26,7 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         $visits = Visit::all();
-        $items = Item::all();
+        $items = Item::where('user_id', null)->get();
         return view('home', compact('items', 'visits'));
     }
 }

@@ -77,7 +77,11 @@
         </div>
     </nav>
 
-    @yield('content')
+    <div class="container">
+        @include('flash::message')
+
+        @yield('content')
+    </div>
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>

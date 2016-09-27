@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Item;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
+use Laracasts\Flash\Flash;
 
 class ItemsController extends Controller
 {
@@ -17,7 +20,9 @@ class ItemsController extends Controller
     public function index()
     {
         $items = Item::all();
-        return view('items.index', compact('items'));
+        $purchased_count = Item::purchased_count();
+        $needed_count = Item::needed_count();
+        return view('items.index', compact('items', 'purchased_count', 'needed_count'));
     }
 
     /**
@@ -27,62 +32,112 @@ class ItemsController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::pluck('name', 'id');
+        $users->prepend('Not purchased yet.');
+        return view('items.create', compact('users'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title'       => 'required',
+            'description' => 'required',
+            'priority'    => 'required',
+        ]);
+
+        $item = Item::create($request->all());
+
+        flash($item->title . ' was created!', 'success');
+
+        return redirect('/items');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Item $item
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Item $item)
     {
-        //
+        return view('items.show', compact('item'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Item $item
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Item $item)
     {
-        //
+        $this->validate($request, [
+            'title'       => 'required',
+            'description' => 'required',
+            'priority'    => 'required',
+        ]);
+
+        $users = User::pluck('name', 'id');
+        $users->prepend('Not purchased yet.');
+        return view('items.edit', compact('item', 'users'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param Item $item
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Item $item)
     {
-        //
+        $item->update($request->all());
+
+        if($request->user_id === "0") {
+            $item->user_id = null;
+        }
+
+        $item->save();
+        flash($item->title . ' updated successfully', 'success');
+
+        return redirect('/items');
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
+     * @param Item $item
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Item $item)
     {
-        //
+        $item->delete();
+
+        flash('Item deleted.', 'success');
+
+        return redirect('/items');
+    }
+
+    public function purchased(Item $item)
+    {
+        if (Auth::check()) {
+            // The user is logged in...
+            $item->user_id = Auth::user()->id;
+            $item->save();
+
+            flash($item->title . ' was purchased by ' . Auth::user()->name, 'success');
+
+            return redirect('/items');
+        } else {
+
+            flash('You must login before marking an item as purchased.', 'error');
+
+            return redirect('/login');
+        }
     }
 }

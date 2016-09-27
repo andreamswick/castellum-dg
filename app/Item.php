@@ -14,6 +14,16 @@ class Item extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User', 'user_id');
+    }
+
+    public static function purchased_count()
+    {
+        return Item::where('user_id', '<>', null)->count();
+    }
+
+    public static function needed_count()
+    {
+        return Item::where('user_id', null)->count();
     }
 }
