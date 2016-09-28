@@ -22,7 +22,7 @@
                 @endforeach
             </td>
             <td class="text-right">
-                {{ Form::open([ 'method'  => 'delete', 'route' => [ 'items.destroy', $visit->id ] ]) }}
+                {{ Form::open([ 'method'  => 'delete', 'route' => [ 'visits.destroy', $visit->id ] ]) }}
                 <a href="/visits/{{ $visit->id }}" class="btn btn-default btn-sm"><i class="fa fa-eye"></i></a>
                 <a href="/visits/{{ $visit->id }}/edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
                 <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
