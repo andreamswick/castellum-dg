@@ -31,7 +31,9 @@ Route::get('/items/{item}/purchased', 'ItemsController@purchased');
 Route::get('/visits', 'VisitsController@index')->name('visits.index');
 Route::post('/visits', 'VisitsController@store')->name('visits.store');
 Route::get('/visits/create', 'VisitsController@create')->name('visits.create');
-Route::get('/visits/{visits}', 'VisitsController@show')->name('visits.show');
-Route::delete('/visits/{visits}', 'VisitsController@destroy')->name('visits.destroy');
-Route::patch('/visits/{visits}', 'VisitsController@update')->name('visits.update');
-Route::get('/visits/{visits}/edit', 'VisitsController@edit')->name('visits.edit');
+Route::get('/visits/{visit}', 'VisitsController@show')->name('visits.show');
+Route::delete('/visits/{visit}', 'VisitsController@destroy')->name('visits.destroy');
+Route::patch('/visits/{visit}', 'VisitsController@update')->name('visits.update');
+Route::get('/visits/{visit}/edit', 'VisitsController@edit')->name('visits.edit');
+
+Route::post('/visits/{visit}/comments', 'CommentsController@store')->name('comments.store');

@@ -19,6 +19,14 @@
 <div class="form-group">
     <label for="user_id" class="col-sm-2 control-label">People Coming</label>
     <div class="col-sm-10">
-        {{ Form::select('user_id', $users, null, ['class' => 'form-control select2-multiple', 'multiple' => 'multiple']) }}
+        @if($visit)
+            <select name="user_id[]" id="user_id" class="form-control select2-multiple" multiple="multiple">
+                @foreach($users as $id => $name)
+                    <option value="{{ $id }}" {{ ($visit->users->contains($id)) ? 'selected' : '' }} >{{ $name }}</option>
+                @endforeach
+            </select>
+        @else
+        {{ Form::select('user_id[]', $users, null, ['class' => 'form-control select2-multiple', 'multiple' => 'multiple']) }}
+        @endif
     </div>
 </div>

@@ -32,8 +32,34 @@ class Visit extends Model
         return $this->belongsToMany('App\User');
     }
 
-//    public function setStartAttribute($value)
-//    {
-//
-//    }
+    /**
+     * A visit can have many comments.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
+
+    /**
+     * Load a threaded set of comments for the post.
+     *
+     * @return App\CommentsCollection
+     */
+    public function getThreadedComments()
+    {
+        return $this->comments()->with('owner')->get()->threaded();
+    }
+
+    public function setStartAttribute($value)
+    {
+        $this->attributes['start'] = date('Y-m-d H:i:s', strtotime($value));
+    }
+
+    public function setEndAttribute($value)
+    {
+        $this->attributes['end'] = date('Y-m-d H:i:s', strtotime($value));
+    }
+
 }

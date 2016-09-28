@@ -11,7 +11,7 @@ class Comment extends Model
      *
      * @var array
      */
-    protected $fillable = ['body'];
+    protected $fillable = ['body', 'user_id', 'parent_id'];
 
     /**
      * A comment has an owner.
@@ -22,6 +22,7 @@ class Comment extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
     /**
      * Use a custom collection for all comments.
      *

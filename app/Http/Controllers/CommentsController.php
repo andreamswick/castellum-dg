@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\User;
 use App\Visit;
 use Illuminate\Http\Request;
@@ -9,64 +10,30 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 
-class VisitsController extends Controller
+class CommentsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $visits = Visit::all();
-        return view('visits.index', compact('visits'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $users = User::pluck('name', 'id');
-        return view('visits.create', compact('users'));
-    }
-
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $this->validate($request, [
-            'start' => 'required',
-            'end'   => 'required',
-            'name'  => 'required',
-        ]);
-
-        $visit = Visit::create($request->all());
-
-        $visit->users()->sync($request->user_id);
-
-        flash($visit->name . ' was created!', 'success');
-
-        return redirect('/visits');
-    }
-
-    /**
-     * Display the specified resource.
-     *
      * @param Visit $visit
      * @return \Illuminate\Http\Response
      */
-    public function show(Visit $visit)
+    public function store(Request $request, Visit $visit)
     {
-        $comments = $visit->getThreadedComments();
+        $this->validate($request, [
+            'body' => 'required',
+        ]);
 
-        return view('visits.show', compact('visit', 'comments'));
+        $visit->comments()->create([
+            'body'      => $request->body,
+            'user_id'   => Auth::user()->id,
+            'parent_id' => $request->parent_id,
+        ]);
+
+        flash('Comment was created!', 'success');
+
+        return redirect("/visits/$visit->id");
     }
 
     /**
