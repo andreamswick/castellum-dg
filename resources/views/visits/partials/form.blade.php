@@ -19,7 +19,7 @@
 <div class="form-group">
     <label for="user_id" class="col-sm-2 control-label">People Coming</label>
     <div class="col-sm-10">
-        @if($visit)
+        @if(isset($visit))
             <select name="user_id[]" id="user_id" class="form-control select2-multiple" multiple="multiple">
                 @foreach($users as $id => $name)
                     <option value="{{ $id }}" {{ ($visit->users->contains($id)) ? 'selected' : '' }} >{{ $name }}</option>
