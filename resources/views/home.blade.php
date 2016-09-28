@@ -7,7 +7,7 @@
                 <div class="panel-heading"><a href="/visits">Scheduled Visits</a></div>
 
                 <div class="panel-body">
-                    Calendar (coming soon)
+                    <div class='fullcalendar'></div>
                 </div>
             </div>
         </div>

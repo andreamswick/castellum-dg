@@ -8,6 +8,7 @@
 require('./bootstrap');
 require('flatpickr');
 require('select2');
+require('fullcalendar')
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -23,3 +24,4 @@ const app = new Vue({
 
 $(".flatpickr").flatpickr();
 $('.select2-multiple').select2();
+$('.fullcalendar').fullCalendar()

@@ -77,12 +77,6 @@ class ItemsController extends Controller
      */
     public function edit(Item $item)
     {
-        $this->validate($request, [
-            'title'       => 'required',
-            'description' => 'required',
-            'priority'    => 'required',
-        ]);
-
         $users = User::pluck('name', 'id');
         $users->prepend('Not purchased yet.');
         return view('items.edit', compact('item', 'users'));
@@ -97,6 +91,12 @@ class ItemsController extends Controller
      */
     public function update(Request $request, Item $item)
     {
+        $this->validate($request, [
+            'title'       => 'required',
+            'description' => 'required',
+            'priority'    => 'required',
+        ]);
+
         $item->update($request->all());
 
         if($request->user_id === "0") {
