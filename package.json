@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "flatpickr": "^2.0.0",
-    "font-awesome": "^4.6.3"
+    "font-awesome": "^4.6.3",
+    "select2": "^4.0.3"
   }
 }

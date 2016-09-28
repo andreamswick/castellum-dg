@@ -19,6 +19,7 @@ class CreateVisitsTable extends Migration
             $table->datetime('end');
             $table->string('name');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
