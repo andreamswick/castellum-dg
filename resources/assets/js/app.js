@@ -24,4 +24,6 @@ const app = new Vue({
 
 $(".flatpickr").flatpickr();
 $('.select2-multiple').select2();
-$('.fullcalendar').fullCalendar()
+$('.fullcalendar').fullCalendar({
+    events: '/api/visits'
+})
