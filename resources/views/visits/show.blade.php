@@ -43,7 +43,9 @@
                     Comments
                 </div>
                 <div class="panel-body">
-                    @include('comments.partials.list', ['list' => $comments['root']])
+                    @if($comments->has('root'))
+                        @include('comments.partials.list', ['list' => $comments['root']])
+                    @endif
                 </div>
                 <div class="panel-footer">
                     @include('comments.partials.form')
