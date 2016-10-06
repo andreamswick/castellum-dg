@@ -51,6 +51,9 @@
                             </li>
                         </ul>
                     </li>
+                    @role('admin')
+                    <li><a href="/trash-bin"><i class="fa fa-trash"></i></a></li>
+                    @endrole
                 @endif
             </ul>
         </div>

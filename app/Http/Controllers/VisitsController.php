@@ -19,6 +19,7 @@ class VisitsController extends Controller
     public function index()
     {
         $visits = Visit::all();
+
         return view('visits.index', compact('visits'));
     }
 
@@ -30,6 +31,7 @@ class VisitsController extends Controller
     public function create()
     {
         $users = User::pluck('name', 'id');
+
         return view('visits.create', compact('users'));
     }
 
@@ -37,6 +39,7 @@ class VisitsController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -60,6 +63,7 @@ class VisitsController extends Controller
      * Display the specified resource.
      *
      * @param Visit $visit
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Visit $visit)
@@ -73,11 +77,13 @@ class VisitsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Visit $visit
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Visit $visit)
     {
         $users = User::pluck('name', 'id');
+
         return view('visits.edit', compact('visit', 'users'));
     }
 
@@ -85,7 +91,8 @@ class VisitsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param Visit $visit
+     * @param Visit                     $visit
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Visit $visit)
@@ -108,16 +115,46 @@ class VisitsController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param Visit $visit
+     *
+     * @param \App\Visit $visit
+     *
      * @return \Illuminate\Http\Response
+     * @internal param $id
+     *
+     * @internal param \App\Visit $visit
      */
     public function destroy(Visit $visit)
     {
-        $visit->delete();
+        if (Auth::user()->hasRole('admin')) {
+            $visit->delete();
 
-        flash('Visit deleted.', 'success');
+            flash('Visit deleted.', 'success');
+        } else {
+            flash('You must be an admin to do that.', 'error');
+        }
 
         return redirect('/visits');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param $id
+     *
+     * @return \Illuminate\Http\Response
+     * @internal param \App\Visit $visit
+     *
+     */
+    public function restore($id)
+    {
+        if (Auth::user()->hasRole('admin')) {
+            Visit::withTrashed()->where('id', $id)->restore();
+
+            flash('Visit restored.', 'success');
+        } else {
+            flash('You must be an admin to do that.', 'error');
+        }
+
+        return redirect('/trash-bin');
+    }
 }

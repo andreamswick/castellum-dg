@@ -22,6 +22,7 @@ class ItemsController extends Controller
         $items = Item::all();
         $purchased_count = Item::purchased_count();
         $needed_count = Item::needed_count();
+
         return view('items.index', compact('items', 'purchased_count', 'needed_count'));
     }
 
@@ -34,6 +35,7 @@ class ItemsController extends Controller
     {
         $users = User::pluck('name', 'id');
         $users->prepend('Not purchased yet.');
+
         return view('items.create', compact('users'));
     }
 
@@ -41,6 +43,7 @@ class ItemsController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -62,6 +65,7 @@ class ItemsController extends Controller
      * Display the specified resource.
      *
      * @param Item $item
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Item $item)
@@ -73,12 +77,14 @@ class ItemsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Item $item
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Item $item)
     {
         $users = User::pluck('name', 'id');
         $users->prepend('Not purchased yet.');
+
         return view('items.edit', compact('item', 'users'));
     }
 
@@ -86,7 +92,8 @@ class ItemsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param Item $item
+     * @param Item                      $item
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Item $item)
@@ -99,7 +106,7 @@ class ItemsController extends Controller
 
         $item->update($request->all());
 
-        if($request->user_id === "0") {
+        if ($request->user_id === "0") {
             $item->user_id = null;
         }
 
@@ -111,16 +118,42 @@ class ItemsController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
      * @param Item $item
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Item $item)
     {
-        $item->delete();
+        if (Auth::user()->hasRole('admin')) {
+            $item->delete();
 
-        flash('Item deleted.', 'success');
+            flash('Item deleted.', 'success');
+        } else {
+            flash('You must be an admin to do that.', 'error');
+        }
 
         return redirect('/items');
+    }
+
+    /**
+     * Restore the specified resource from storage.
+     *
+     * @param $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function restore($id)
+    {
+        if (Auth::user()->hasRole('admin')) {
+            Item::withTrashed()->where('id', $id)->restore();
+
+            flash('Item restored.', 'success');
+        } else {
+            flash('You must be an admin to do that.', 'error');
+        }
+
+        return redirect('/trash-bin');
     }
 
     public function purchased(Item $item)

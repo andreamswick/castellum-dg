@@ -77,21 +77,24 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
+        if (Auth::user()->hasRole('admin')) {
+            $user->delete();
 
-        flash('User deleted.', 'success');
+            flash('User deleted.', 'success');
+        } else {
+            flash('You must be an admin to do that.', 'error');
+        }
 
         return redirect('/users');
     }
 
     public function makeAdmin(User $user)
     {
-        if(Auth::user()->hasRole('admin')) {
+        if (Auth::user()->hasRole('admin')) {
             $user->assignRole('admin');
 
             flash($user->name . ' was given admin permissions.', 'success');
-        }
-        else {
+        } else {
             flash('You must be an admin to do that.', 'error');
         }
 
