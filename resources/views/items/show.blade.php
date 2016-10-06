@@ -12,7 +12,9 @@
                                 <a href="/items/{{ $item->id }}/purchased" class="btn btn-success btn-sm">Mark as Purchased</a>
                             @endif
                             <a href="/items/{{ $item->id }}/edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                        @role('admin')
                             <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                        @endrole
                         {{ Form::close() }}
                     </div>
                 </div>

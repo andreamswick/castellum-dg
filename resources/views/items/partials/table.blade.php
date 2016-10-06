@@ -25,7 +25,9 @@
                 {{ Form::open([ 'method'  => 'delete', 'route' => [ 'items.destroy', $item->id ] ]) }}
                     <a href="/items/{{ $item->id }}" class="btn btn-default btn-sm"><i class="fa fa-eye"></i></a>
                     <a href="/items/{{ $item->id }}/edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                @role('admin')
                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                @endrole
                 {{ Form::close() }}
             </td>
         </tr>

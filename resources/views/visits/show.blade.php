@@ -10,7 +10,10 @@
                         {{ Form::open([ 'method'  => 'delete', 'route' => [ 'visits.destroy', $visit->id ] ]) }}
                         <a href="/visits/{{ $visit->id }}/edit" class="btn btn-warning btn-sm"><i
                                     class="fa fa-pencil"></i></a>
-                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+
+                        @role('admin')
+                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                        @endrole
                         {{ Form::close() }}
                     </div>
                 </div>

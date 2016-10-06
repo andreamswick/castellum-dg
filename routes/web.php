@@ -38,4 +38,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/visits/{visit}/edit', 'VisitsController@edit')->name('visits.edit');
 
     Route::post('/visits/{visit}/comments', 'CommentsController@store')->name('comments.store');
+    Route::get('/seed-roles', function() {
+        Spatie\Permission\Models\Role::create(['name' => 'admin']);
+
+        Auth::user()->assignRole('admin');
+    });
 });
