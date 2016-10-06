@@ -18,6 +18,7 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::all();
+
         return view('users.index', compact('users'));
     }
 
@@ -25,6 +26,7 @@ class UsersController extends Controller
      * Display the specified resource.
      *
      * @param User $user
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
@@ -36,6 +38,7 @@ class UsersController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param User $user
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
@@ -47,13 +50,14 @@ class UsersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param User $user
+     * @param User                      $user
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
     {
         $this->validate($request, [
-            'name' => 'required|max:255',
+            'name'  => 'required|max:255',
             'email' => 'required|email|max:255',
         ]);
 
@@ -66,7 +70,9 @@ class UsersController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
      * @param User $user
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user)
@@ -78,4 +84,17 @@ class UsersController extends Controller
         return redirect('/users');
     }
 
+    public function makeAdmin(User $user)
+    {
+        if(Auth::user()->hasRole('admin')) {
+            $user->assignRole('admin');
+
+            flash($user->name . ' was given admin permissions.', 'success');
+        }
+        else {
+            flash('You must be an admin to do that.', 'error');
+        }
+
+        return redirect('/users');
+    }
 }

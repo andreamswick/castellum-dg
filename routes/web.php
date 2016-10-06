@@ -41,6 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/users', 'UsersController@index')->name('users.index');
     Route::get('/users/{user}', 'UsersController@show')->name('users.show');
+    Route::get('/users/{user}/make-admin', 'UsersController@makeAdmin')->name('users.make-admin');
     Route::delete('/users/{user}', 'UsersController@destroy')->name('users.destroy');
     Route::patch('/users/{user}', 'UsersController@update')->name('users.update');
     Route::get('/users/{user}/edit', 'UsersController@edit')->name('users.edit');
