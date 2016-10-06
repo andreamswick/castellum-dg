@@ -38,6 +38,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/visits/{visit}/edit', 'VisitsController@edit')->name('visits.edit');
 
     Route::post('/visits/{visit}/comments', 'CommentsController@store')->name('comments.store');
+
+    Route::get('/users', 'UsersController@index')->name('users.index');
+    Route::get('/users/{user}', 'UsersController@show')->name('users.show');
+    Route::delete('/users/{user}', 'UsersController@destroy')->name('users.destroy');
+    Route::patch('/users/{user}', 'UsersController@update')->name('users.update');
+    Route::get('/users/{user}/edit', 'UsersController@edit')->name('users.edit');
+
     Route::get('/seed-roles', function() {
         Spatie\Permission\Models\Role::create(['name' => 'admin']);
 
