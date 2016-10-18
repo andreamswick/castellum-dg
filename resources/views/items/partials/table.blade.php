@@ -12,7 +12,7 @@
     @forelse($items as $item)
         <tr>
             <td>{{ $item->title }}</td>
-            <td>{{ $item->description }}</td>
+            <td>{!! $item->description !!}</td>
             <td>{{ ucfirst($item->priority) }}</td>
             <td>
                 @if(empty($item->user))
