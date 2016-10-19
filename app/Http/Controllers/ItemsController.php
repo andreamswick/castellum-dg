@@ -109,6 +109,10 @@ class ItemsController extends Controller
         if ($request->user_id === "0") {
             $item->user_id = null;
         }
+        else {
+            $item->user_id = $request->user_id;
+            $item->save();
+        }
 
         $item->save();
         flash($item->title . ' updated successfully', 'success');
