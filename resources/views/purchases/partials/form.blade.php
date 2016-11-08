@@ -8,7 +8,7 @@
 <div class="form-group{{ $errors->has('quantity') ? ' has-error' : '' }}">
     <label for="quantity" class="col-sm-3 control-label">How many do you have?</label>
     <div class="col-sm-8">
-        {{ Form::number('quantity', null, ['class' => 'form-control', 'max' => $item->needed()]) }}
+        {{ Form::number('quantity', null, ['class' => 'form-control']) }}
         <span class="help-block">There is only a need for {{ $item->needed() }} more.</span>
 
         @if ($errors->has('quantity'))

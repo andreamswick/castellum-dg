@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\VolunteerCategories;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -26,12 +27,15 @@ class UsersController extends Controller
      * Display the specified resource.
      *
      * @param User $user
-     *
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
     {
-        return view('users.show', compact('user'));
+
+        return view('users.show', [
+            'user' => $user,
+            'profile' => (Auth::user()->id === $user->id) ? true : false,
+        ]);
     }
 
     /**
@@ -43,7 +47,10 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        return view('users.edit', [
+            'user' => $user,
+            'volunteer_categories' => VolunteerCategories::pluck('name', 'id')
+        ]);
     }
 
     /**
@@ -62,6 +69,10 @@ class UsersController extends Controller
         ]);
 
         $user->update($request->all());
+
+        if($request->has('volunteer_categories')) {
+            $user->volunteer_categories()->sync($request->volunteer_categories);
+        }
 
         flash($user->name . ' updated successfully', 'success');
 

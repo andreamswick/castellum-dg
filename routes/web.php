@@ -20,6 +20,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index');
 
+    // Items
     Route::get('/items', 'ItemsController@index')->name('items.index');
     Route::post('/items', 'ItemsController@store')->name('items.store');
     Route::get('/items/create', 'ItemsController@create')->name('items.create');
@@ -29,9 +30,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/items/{id}/restore', 'ItemsController@restore')->name('items.restore');
     Route::get('/items/{item}/edit', 'ItemsController@edit')->name('items.edit');
 
+    // Purchases
     Route::get('/items/{item}/purchase', 'ItemsPurchasesController@create')->name('purchases.create');
     Route::post('/items/{item}/purchase', 'ItemsPurchasesController@store')->name('purchases.store');
+    Route::delete('purchases/{purchase}', 'ItemsPurchasesController@destroy')->name('purchases.destroy');
+    Route::patch('purchases/{purchase}', 'ItemsPurchasesController@update')->name('purchases.update');
+    Route::get('purchases/{purchase}/edit', 'ItemsPurchasesController@edit')->name('purchases.edit');
 
+    // Visits
     Route::get('/visits', 'VisitsController@index')->name('visits.index');
     Route::post('/visits', 'VisitsController@store')->name('visits.store');
     Route::get('/visits/create', 'VisitsController@create')->name('visits.create');
@@ -50,6 +56,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::patch('/users/{user}', 'UsersController@update')->name('users.update');
     Route::get('/users/{user}/edit', 'UsersController@edit')->name('users.edit');
 
+    Route::get('/profile', 'ProfileController@show')->name('profile');
+
+    Route::get('/docs/volunteer-categories', 'DocsController@volunteer');
+    Route::get('/reports/{report}', 'ReportsController@show');
+
+    // Admin Stuff
     Route::get('/trash-bin', 'HomeController@trash')->name('trash-bin');
 
     Route::get('/seed-roles', function() {
@@ -57,10 +69,4 @@ Route::group(['middleware' => 'auth'], function () {
 
         Auth::user()->assignRole('admin');
     });
-});
-
-Route::get('test', function() {
-    $item = App\Item::find(1);
-
-    dd($item->needed());
 });

@@ -48,17 +48,18 @@ class ItemsPurchasesController extends Controller
         if (is_null($purchase)) {
             $purchase = new Purchase([
                 'quantity' => $request->quantity,
-                'notes' => $request->notes,
-                'user_id' => Auth::user()->id
+                'notes'    => $request->notes,
+                'user_id'  => Auth::user()->id,
             ]);
 
             $item->purchases()->save($purchase);
-        }
-        else {
+        } else {
             $purchase->quantity = $purchase->quantity + $request->quantity;
             $purchase->notes .= $request->notes;
             $purchase->save();
         }
+
+        flash('You purchased ' . $purchase->quantity . ' ' . $item->title, 'success');
 
         return redirect('/items');
     }
@@ -77,34 +78,51 @@ class ItemsPurchasesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param Purchase $purchase
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Purchase $purchase)
     {
-        //
+        return view('purchases.edit', [
+            'purchase' => $purchase,
+            'item' => $purchase->item
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param $purchase
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Purchase $purchase)
     {
-        //
+        $this->validate($request, [
+            'quantity' => 'required',
+        ]);
+
+        $purchase->quantity = $request->quantity;
+        $purchase->notes .= $request->notes;
+        $purchase->save();
+
+        flash('You purchased ' . $purchase->quantity . ' ' . $purchase->item->title, 'success');
+
+        return redirect('/items');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param Purchase $purchase
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Purchase $purchase)
     {
-        //
+        $purchase->delete();
+
+        flash('You deleted your purchase for ' . $purchase->item->title, 'success');
+
+        return redirect('/items');
     }
 }

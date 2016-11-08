@@ -57,3 +57,41 @@
         @endif
     </div>
 </div>
+
+<div class="form-group{{ $errors->has('volunteer_categories') ? ' has-error' : '' }}">
+    <label for="volunteer_categories" class="col-md-4 control-label">Volunteer
+        Categories</label>
+
+    <div class="col-md-6">
+        <select id="volunteer_categories" class="form-control select2-multiple"
+                multiple="multiple" name="volunteer_categories[]"
+                value="{{ old('volunteer_categories') }}" required>
+            @foreach($volunteer_categories as $id => $category)
+                <option value="{{ $id }}">{{ $category }}</option>
+            @endforeach
+            @foreach($volunteer_categories as $id => $name)
+                <option value="{{ $id }}" {{ (Auth::user()->volunteer_categories->contains($id)) ? 'selected' : '' }} >{{ $name }}</option>
+            @endforeach
+        </select>
+        <span class="help-block">Information on volunteer categories can be found <a href="/docs/volunteer-categories" target="_blank">here</a>. More than one may be selected.</span>
+        @if ($errors->has('volunteer_categories'))
+            <span class="help-block">
+                <strong>{{ $errors->first('volunteer_categories') }}</strong>
+            </span>
+        @endif
+    </div>
+</div>
+
+<div class="form-group{{ $errors->has('volunteer_details') ? ' has-error' : '' }}">
+    <label for="volunteer_details" class="col-md-4 control-label">Volunteer Details</label>
+
+    <div class="col-md-6">
+        {{ Form::textarea('volunteer_details', null, ['class' => 'form-control', 'rows' => 3]) }}
+
+        @if ($errors->has('volunteer_details'))
+            <span class="help-block">
+                <strong>{{ $errors->first('volunteer_details') }}</strong>
+            </span>
+        @endif
+    </div>
+</div>

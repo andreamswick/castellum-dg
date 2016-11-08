@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\VolunteerCategories;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -40,17 +41,29 @@ class RegisterController extends Controller
     }
 
     /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        return view('auth.register', [
+            'volunteer_categories' => VolunteerCategories::pluck('name', 'id'),
+        ]);
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'contact' => 'required',
+            'name'     => 'required|max:255',
+            'email'    => 'required|email|max:255|unique:users',
+            'contact'  => 'required',
             'password' => 'required|min:6|confirmed',
         ]);
     }
@@ -58,17 +71,25 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return User
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'phone' => $data['phone'],
-            'contact' => $data['contact'],
+
+        $user = User::create([
+            'name'     => $data['name'],
+            'email'    => $data['email'],
+            'phone'    => $data['phone'],
+            'contact'  => $data['contact'],
             'password' => bcrypt($data['password']),
+            'volunteer_details' => $data['volunteer_details']
         ]);
+
+        if(array_key_exists('volunteer_categories', $data)) {
+            $user->volunteer_categories()->sync($data['volunteer_categories']);
+        }
+
+        return $user;
     }
 }

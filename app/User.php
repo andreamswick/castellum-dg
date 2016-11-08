@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'phone', 'contact',
+        'name', 'email', 'password', 'phone', 'contact', 'volunteer_details'
     ];
 
     /**
@@ -28,13 +28,18 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function items()
-    {
-        return $this->hasMany('App\Item');
-    }
-
     public function visits()
     {
         return $this->belongsToMany('App\Visit');
+    }
+
+    public function purchases()
+    {
+        return $this->hasMany('App\Purchase');
+    }
+
+    public function volunteer_categories()
+    {
+        return $this->belongsToMany('App\VolunteerCategories', 'user_volunteer_categories', 'user_id', 'category_id');
     }
 }
