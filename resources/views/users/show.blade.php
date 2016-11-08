@@ -8,14 +8,12 @@
                     {{ $user->name }}
                     <div class="toolbox pull-right">
                         {{ Form::open([ 'method'  => 'delete', 'route' => [ 'users.destroy', $user->id ] ]) }}
-                        @if($user->id === Auth::user()->id)
+                        @if($user->id === Auth::user()->id || Auth::user()->hasRole('admin'))
                             <a href="/users/{{ $user->id }}/edit" class="btn btn-warning btn-sm"><i
                                         class="fa fa-pencil"></i></a>
                         @endif
 
                         @role('admin')
-                        <a href="/users/{{ $user->id }}/edit" class="btn btn-warning btn-sm"><i
-                                    class="fa fa-pencil"></i></a>
                         <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                         @endrole
                         {{ Form::close() }}
