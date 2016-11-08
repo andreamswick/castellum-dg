@@ -38,7 +38,9 @@ class Item extends Model
     }
 
     public function needed() {
-        return $this->quantity - $this->purchased();
+        $needed = $this->quantity - $this->purchased();
+
+        return $needed < 0 ? 0 : $needed;
     }
 
     public function purchased() {
