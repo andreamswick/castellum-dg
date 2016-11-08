@@ -20,6 +20,7 @@ class ItemsController extends Controller
     public function index()
     {
         $items = Item::all();
+
         $purchased_count = Item::purchased_count();
         $needed_count = Item::needed_count();
 
@@ -92,27 +93,26 @@ class ItemsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param Item                      $item
+     * @param Item $item
      *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Item $item)
     {
         $this->validate($request, [
-            'title'       => 'required',
-            'description' => 'required',
-            'priority'    => 'required',
+            'title'    => 'required',
+            'priority' => 'required',
+            'quantity' => 'required',
         ]);
 
         $item->update($request->all());
-
-        if ($request->user_id === "0") {
-            $item->user_id = null;
-        }
-        else {
-            $item->user_id = $request->user_id;
-            $item->save();
-        }
+//
+//        if ($request->user_id === "0") {
+//            $item->user_id = null;
+//        } else {
+//            $item->user_id = $request->user_id;
+//            $item->save();
+//        }
 
         $item->save();
         flash($item->title . ' updated successfully', 'success');

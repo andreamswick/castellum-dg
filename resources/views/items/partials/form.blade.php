@@ -17,8 +17,8 @@
     </div>
 </div>
 <div class="form-group">
-    <label for="user_id" class="col-sm-2 control-label">Purchased By</label>
+    <label for="priority" class="col-sm-2 control-label">Number Needed</label>
     <div class="col-sm-10">
-        {{ Form::select('user_id', $users, null, ['class' => 'form-control']) }}
+        {{ Form::number('quantity', null, ['class' => 'form-control']) }}
     </div>
 </div>

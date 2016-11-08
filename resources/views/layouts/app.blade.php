@@ -25,6 +25,7 @@
 
     <div class="container">
         @include('flash::message')
+        @include('common.errors')
 
         @yield('content')
     </div>

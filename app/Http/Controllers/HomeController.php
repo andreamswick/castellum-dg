@@ -28,7 +28,9 @@ class HomeController extends Controller
     public function index()
     {
         $visits = Visit::all();
-        $items = Item::where('user_id', null)->get();
+        $items = Item::all()->filter(function($value) {
+            return $value->needed() > 0;
+        });
 
         return view('home', compact('items', 'visits'));
     }

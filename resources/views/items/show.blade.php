@@ -8,12 +8,14 @@
                     {{ $item->title }} Item
                     <div class="toolbox pull-right">
                         {{ Form::open([ 'method'  => 'delete', 'route' => [ 'items.destroy', $item->id ] ]) }}
-                            @if(!$item->user)
-                                <a href="/items/{{ $item->id }}/purchased" class="btn btn-success btn-sm">Mark as Purchased</a>
-                            @endif
-                            <a href="/items/{{ $item->id }}/edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                        @if(!$item->user)
+                            <a href="/items/{{ $item->id }}/purchased" class="btn btn-success btn-sm">Mark as
+                                Purchased</a>
+                        @endif
+                        <a href="/items/{{ $item->id }}/edit" class="btn btn-warning btn-sm"><i
+                                    class="fa fa-pencil"></i></a>
                         @role('admin')
-                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                         @endrole
                         {{ Form::close() }}
                     </div>
@@ -33,12 +35,23 @@
                             <td>{{ $item->priority }}</td>
                         </tr>
                         <tr>
+                            <td>Needed</td>
+                            <td>{{ $item->needed() }} of {{ $item->quantity }}</td>
+                        </tr>
+                        <tr>
                             <td>Purchased By</td>
-                            @if($item->user)
-                            <td>{{ $item->user->name }}</td>
-                            @else
-                            <td>Not purchased yet.</td>
-                            @endif
+                            <td>
+                                @if($item->purchases !== null)
+                                    <dl class="dl-horizontal">
+                                        @foreach($item->purchases as $purchase)
+                                            <dt>{{ $purchase->user->name }} ({{ $purchase->quantity }})</dt>
+                                            <dd>{!! $purchase->notes !!}</dd>
+                                        @endforeach
+                                    </dl>
+                                @else
+                                    This item has not been purchased by anyone yet.
+                                @endif
+                            </td>
                         </tr>
                     </table>
                 </div>

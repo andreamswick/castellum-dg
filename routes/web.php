@@ -28,7 +28,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::patch('/items/{item}', 'ItemsController@update')->name('items.update');
     Route::post('/items/{id}/restore', 'ItemsController@restore')->name('items.restore');
     Route::get('/items/{item}/edit', 'ItemsController@edit')->name('items.edit');
-    Route::get('/items/{item}/purchased', 'ItemsController@purchased');
+
+    Route::get('/items/{item}/purchase', 'ItemsPurchasesController@create')->name('purchases.create');
+    Route::post('/items/{item}/purchase', 'ItemsPurchasesController@store')->name('purchases.store');
 
     Route::get('/visits', 'VisitsController@index')->name('visits.index');
     Route::post('/visits', 'VisitsController@store')->name('visits.store');
@@ -55,4 +57,10 @@ Route::group(['middleware' => 'auth'], function () {
 
         Auth::user()->assignRole('admin');
     });
+});
+
+Route::get('test', function() {
+    $item = App\Item::find(1);
+
+    dd($item->needed());
 });
