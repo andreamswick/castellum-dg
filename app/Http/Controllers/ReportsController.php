@@ -10,11 +10,26 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ReportsController extends Controller
 {
-    public function show()
+    public function index()
     {
-        Excel::create('volunteers', function($excel) {
+        return view('reports.index', [
+            'users'                => User::with('volunteer_categories')->orderBy('name')->get(),
+            'volunteer_categories' => VolunteerCategories::pluck('name', 'id'),
+        ]);
+    }
 
-            $excel->sheet('volunteers', function($sheet) {
+    public function show($report)
+    {
+        $this->$report();
+
+        return back();
+    }
+
+    private function volunteers()
+    {
+        Excel::create('volunteers', function ($excel) {
+
+            $excel->sheet('volunteers', function ($sheet) {
 
                 $sheet->loadView('reports.volunteers', [
                     'users'                => User::with('volunteer_categories')->orderBy('name')->get(),
@@ -24,8 +39,6 @@ class ReportsController extends Controller
             });
 
         })->download('xlsx');
-
-        return back();
     }
 
 }

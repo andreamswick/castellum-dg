@@ -1,0 +1,3 @@
+- [Quickstart](/docs/quickstart)
+- [FAQ](/docs/faqs)
+- [Release Notes](/docs/release-notes)

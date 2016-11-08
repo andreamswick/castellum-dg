@@ -19,6 +19,7 @@
     "flatpickr": "^2.0.0",
     "font-awesome": "^4.6.3",
     "fullcalendar": "^3.0.1",
-    "select2": "^4.0.3"
+    "select2": "^4.0.3",
+    "simplemde": "^1.11.2"
   }
 }

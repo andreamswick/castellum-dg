@@ -32,5 +32,7 @@
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>
+
+    @yield('extras')
 </body>
 </html>

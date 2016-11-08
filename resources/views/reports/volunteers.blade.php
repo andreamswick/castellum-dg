@@ -1,8 +1,4 @@
-<html>
-
-<body>
-
-<table>
+<table class="table">
     <thead>
     <tr>
         <td>Name</td>
@@ -28,5 +24,3 @@
     @endforeach
     </tbody>
 </table>
-</body>
-</html>

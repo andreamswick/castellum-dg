@@ -79,8 +79,7 @@
 
                                 <div class="col-md-6">
                                     <select id="volunteer_categories" class="form-control select2-multiple"
-                                            multiple="multiple" name="volunteer_categories[]"
-                                            value="{{ old('volunteer_categories') }}" required>
+                                            multiple="multiple" name="volunteer_categories[]">
                                         @foreach($volunteer_categories as $id => $category)
                                             <option value="{{ $id }}">{{ $category }}</option>
                                         @endforeach

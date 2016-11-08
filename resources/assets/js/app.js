@@ -8,7 +8,7 @@
 require('./bootstrap');
 require('flatpickr');
 require('select2');
-require('fullcalendar')
+require('fullcalendar');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

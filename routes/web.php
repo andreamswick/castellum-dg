@@ -49,6 +49,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/visits/{visit}/comments', 'CommentsController@store')->name('comments.store');
 
+    // Users
     Route::get('/users', 'UsersController@index')->name('users.index');
     Route::get('/users/{user}', 'UsersController@show')->name('users.show');
     Route::get('/users/{user}/make-admin', 'UsersController@makeAdmin')->name('users.make-admin');
@@ -58,7 +59,17 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/profile', 'ProfileController@show')->name('profile');
 
+    // Documentation Routes
+    Route::get('/docs', 'DocsController@showRootPage');
+    Route::post('/docs', 'DocsController@store')->name('docs.store');
+    Route::get('/docs/create', 'DocsController@create')->name('docs.create');
+    Route::get('/docs/{page}/edit', 'DocsController@edit');
+    Route::patch('/docs/{page}', 'DocsController@update')->name('docs.update');
     Route::get('/docs/volunteer-categories', 'DocsController@volunteer');
+    Route::get('/docs/{page?}', 'DocsController@show');
+
+    // Reports
+    Route::get('/reports', 'ReportsController@index');
     Route::get('/reports/{report}', 'ReportsController@show');
 
     // Admin Stuff

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-static-top">
+<nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
 
@@ -29,6 +29,10 @@
                     <li><a href="{{ url('/login') }}">Login</a></li>
                     <li><a href="{{ url('/register') }}">Register</a></li>
                 @else
+                    @role('admin')
+                        <li><a href="/reports">Reports</a></li>
+                    @endrole
+                    <li><a href="/docs">Documentation</a></li>
                     <li><a href="/users">Users</a></li>
                     <li><a href="/visits">Visits</a></li>
                     <li><a href="/items">Items</a></li>

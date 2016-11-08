@@ -11,3 +11,152 @@
 @import "node_modules/flatpickr/dist/flatpickr";
 @import "node_modules/select2/dist/css/select2";
 @import "node_modules/fullcalendar/dist/fullcalendar.scss";
+
+body {
+  padding-top: 60px;
+}
+
+.panel-md-links {
+  ul {
+    margin-bottom: 0;
+    padding-left: 0;
+
+    li {
+      border-radius: 0;
+      position: relative;
+      display: block;
+      padding: 10px 15px;
+      margin-bottom: -1px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #ddd;
+      border-top: 1px solid #ddd;
+
+      &:last-child {
+        border-bottom-color: transparent;
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+        margin-bottom: 1px;
+      }
+
+      &:first-child {
+        border-top: 0;
+      }
+    }
+  }
+}
+
+.docs {
+
+  h1 {
+    margin-top: 5px;
+  }
+
+  ul {
+    font-size: 14px;
+  }
+
+  .content-list ul li {
+    margin: 8px;
+    line-height: 1.65;
+  }
+
+  p {
+    font-size: 14.5px;
+    line-height: 1.70;
+  }
+
+  h1 + ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.5;
+    padding-bottom: 50px;
+    border-bottom: 1px solid $brand-info;
+    -webkit-font-smoothing: antialiased;
+    li {
+      &:before {
+        content: "# ";
+        margin-right: .25em;
+        color: $brand-info;
+        opacity: .3;
+      }
+      a {
+        text-decoration: none;
+      }
+    }
+  }
+
+  li > ul {
+    font-size: 15px;
+    font-weight: 400;
+    list-style: none;
+  }
+
+  h2:first-of-type {
+    margin-top: 15px;
+  }
+
+  h2 {
+    font-size: 30px;
+    font-weight: 400;
+    margin-top: 55px;
+    position: relative;
+
+    a,
+    a:hover {
+      color: #737373;
+      text-decoration: none;
+    }
+    a:before {
+      content: "#";
+      margin-left: -25px;
+      position: absolute;
+      font-size: 28px;
+      top: 5px;
+      color: $brand-primary;
+      opacity: .6;
+    }
+  }
+
+  h3 {
+    font-size: 24px;
+    font-weight: 400;
+    margin-top: 45px;
+  }
+
+  h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 35px;
+  }
+
+  a {
+    text-decoration: underline;
+    &:hover {
+      color: darken($brand-primary, 10%);
+    }
+  }
+
+  blockquote a:hover {
+    color: lighten($brand-primary, 25%);
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14px;
+    th,
+    td {
+      border: 1px solid #dedede;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      font-size: 16px;
+    }
+  }
+
+  blockquote {}
+}
