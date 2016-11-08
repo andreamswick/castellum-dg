@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Documentation;
+use App\VolunteerCategories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Symfony\Component\DomCrawler\Crawler;
@@ -31,6 +32,8 @@ class DocsController extends Controller
     {
         return view('docs.volunteer', [
             'volunteer_categories' => VolunteerCategories::all(),
+            'index'          => $this->docs->getIndex(),
+            'admin_index'    => $this->docs->getAdminIndex(),
         ]);
     }
 

@@ -1,3 +1,4 @@
 - [Quickstart](/docs/quickstart)
 - [FAQ](/docs/faqs)
+- [Volunteer Categories](/docs/volunteer-categories)
 - [Release Notes](/docs/release-notes)
