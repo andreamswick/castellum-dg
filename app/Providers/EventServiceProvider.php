@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\DocsChanged;
+use App\Listeners\CommitChanges;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -16,7 +18,9 @@ class EventServiceProvider extends ServiceProvider
         'Illuminate\Auth\Events\Registered' => [
             'App\Listeners\CreateDocsNotification',
         ],
-
+        DocsChanged::class            => [
+            CommitChanges::class,
+        ],
     ];
 
     /**

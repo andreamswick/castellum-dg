@@ -1,6 +1,7 @@
 <?php
 namespace App;
 
+use App\Events\DocsChanged;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Contracts\Cache\Repository as Cache;
 
@@ -99,6 +100,7 @@ class Documentation
     public function save($page, $content)
     {
         $path = base_path('resources/docs/' . $page . '.md');
+        event(new DocsChanged($page));
         return $this->files->put($path, $content);
     }
 
