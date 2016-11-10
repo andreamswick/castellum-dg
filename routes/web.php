@@ -63,14 +63,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Documentation Routes
     Route::get('/docs', 'DocsController@showRootPage');
-
-    Route::group(['middleware' => ['role:admin']], function () {
-        Route::post('/docs', 'DocsController@store')->name('docs.store');
-        Route::get('/docs/create', 'DocsController@create')->name('docs.create');
-        Route::get('/docs/{page}/edit', 'DocsController@edit');
-        Route::patch('/docs/{page}', 'DocsController@update')->name('docs.update');
-    });
-
+    Route::post('/docs', 'DocsController@store')->name('docs.store');
+    Route::get('/docs/create', 'DocsController@create')->name('docs.create');
+    Route::get('/docs/{page}/edit', 'DocsController@edit');
+    Route::patch('/docs/{page}', 'DocsController@update')->name('docs.update');
     Route::get('/docs/{page?}', 'DocsController@show');
 
     // Reports
