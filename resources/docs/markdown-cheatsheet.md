@@ -2,9 +2,17 @@
 
 Markdown is a simple way to write html without knowing anything about html. The markdown editor will make it easier to format the documentation content, but in case you have questions or are curious the following is a full cheatsheet!
 
-# Typography 
-
-## Headings
+- [Headings](#headings)
+- [Horizontal Rules](#horizontal-rules)
+- [Body Copy](#body-copy)
+- [Emphasis](#emphasis)
+- [Blockquotes](#blockquotes)
+- [Lists](#lists)
+- [Tables](#tables)
+- [Links](#links)
+- [Images](#images)
+  
+## Headings <a id="headings"></a>
 
 Headings from `h1` through `h6` are constructed with a `#` for each level:
 
@@ -26,7 +34,7 @@ Renders to:
 ##### h5 Heading
 ###### h6 Heading
 
-## Horizontal Rules
+## Horizontal Rules <a id="horizontal-rules"></a>
 
 The HTML `<hr>` element is for creating a "thematic break" between paragraph-level elements. In markdown, you can create a `<hr>` with any of the following:
 
@@ -42,7 +50,7 @@ ___
 
 ***
 
-## Body Copy 
+## Body Copy <a id="body-copy"></a>
 
 Body copy written as normal, plain text will be wrapped with `<p></p>` tags in the rendered HTML.
 
@@ -55,7 +63,7 @@ renders to this :
 
 Lorem ipsum dolor sit amet, graecis denique ei vel, at duo primis mandamus. Et legere ocurreret pri, animal tacimates complectitur ad cum. Cu eum inermis inimicus efficiendi. Labore officiis his ex, soluta officiis concludaturque ei qui, vide sensibus vim ad.
 
-## Emphasis
+## Emphasis <a id="emphasis"></a>
 
 ### Bold
 For emphasizing a snippet of text with a heavier font-weight.
@@ -92,7 +100,7 @@ Which renders to:
 
 ~~Strike through this text.~~
 
-## Blockquotes
+## Blockquotes <a id="blockquotes"></a>
 For quoting blocks of content from another source within your document.
 
 Add `>` before any text you want to quote. 
@@ -127,7 +135,7 @@ odio non est accumsan facilisis. Aliquam id turpis in dolor tincidunt mollis ac 
 >>> Donec massa lacus, ultricies a ullamcorper in, fermentum sed augue. 
 Nunc augue augue, aliquam non hendrerit ac, commodo vel nisi. 
 
-## Lists
+## Lists <a id="lists"></a>
 
 ### Unordered
 A list of items in which the order of the items does not explicitly matter.
@@ -221,7 +229,7 @@ Renders to:
 7. Aenean sit amet erat nunc
 8. Eget porttitor lorem
 
-## Tables
+## Tables <a id="tables"></a>
 Tables are created by adding pipes as dividers between each cell, and by adding a line of dashes (also separated by bars) beneath the header. Note that the pipes do not need to be vertically aligned.
 
 
@@ -259,64 +267,39 @@ Adding a colon on the right side of the dashes below any heading will right alig
 | engine | engine to be used for processing templates. Handlebars is the default. |
 | ext    | extension to be used for dest files. |
 
-## Links
+## Links <a id="links"></a>
 
 ### Basic link
 
 ``` markdown
-[Assemble](http://assemble.io)
+[RefugeeOne](http://www.refugeeone.org/)
 ```
 
 Renders to (hover over the link, there is no tooltip):
 
-[Assemble](http://assemble.io)
-
-HTML:
-
-``` html
-<a href="http://assemble.io">Assemble</a>
-```
+[RefugeeOne](http://www.refugeeone.org/)
 
 
 ### Add a title
 
 ``` markdown
-[Upstage](https://github.com/upstage/ "Visit Upstage!")
+[RefugeeOne](http://www.refugeeone.org/ "Visit RefugeeOne they put all of this together!")
 ```
 
 Renders to (hover over the link, there should be a tooltip):
 
-[Upstage](https://github.com/upstage/ "Visit Upstage!")
+[RefugeeOne](http://www.refugeeone.org/ "Visit RefugeeOne they put all of this together!")
 
-HTML:
-
-``` html
-<a href="https://github.com/upstage/" title="Visit Upstage!">Upstage</a>
-```
-
-## Images
+## Images <a id="images"></a>
 Images have a similar syntax to links but include a preceding exclamation point.
 
 ``` markdown
-![Minion](http://octodex.github.com/images/minion.png)
+![Children](https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/Y3TGPUFVCH.jpg)
 ```
-![Minion](http://octodex.github.com/images/minion.png)
+![Children](https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/Y3TGPUFVCH.jpg)
 
 or
 ``` markdown
-![Alt text](http://octodex.github.com/images/stormtroopocat.jpg "The Stormtroopocat")
+![Family](https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/R0C7A5M4WB.jpg "The Family")
 ```
-![Alt text](http://octodex.github.com/images/stormtroopocat.jpg "The Stormtroopocat")
-
-Like links, Images also have a footnote style syntax
-
-``` markdown
-![Alt text][id]
-```
-![Alt text][id]
-
-With a reference later in the document defining the URL location:
-
-[id]: http://octodex.github.com/images/dojocat.jpg  "The Dojocat"
-
-[id]: http://octodex.github.com/images/dojocat.jpg  "The Dojocat"
+![Family](https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/R0C7A5M4WB.jpg "The Family")
