@@ -1,4 +1,4 @@
 - [Reports](/docs/reports)
 - [Users](/docs/users)
 - [Documentation](/docs/documentation)
-- [Testing](/docs/testing)
+- [Markdown Cheatsheet](/docs/markdown-cheatsheet)
