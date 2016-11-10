@@ -10045,18 +10045,6 @@ body {
   font-weight: 400;
   margin-top: 55px;
   position: relative; }
-  .docs h2 a,
-  .docs h2 a:hover {
-    color: #737373;
-    text-decoration: none; }
-  .docs h2 a:before {
-    content: "#";
-    margin-left: -25px;
-    position: absolute;
-    font-size: 28px;
-    top: 5px;
-    color: #3097D1;
-    opacity: .6; }
 
 .docs h3 {
   font-size: 24px;
