@@ -3,3 +3,4 @@
 echo "Hello"
 git add -A
 git commit -m "Docs Update"
+git push
