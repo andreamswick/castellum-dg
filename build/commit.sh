@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Hello"
-git add -A
+cd ..
+git add --all :/
 git commit -m "Docs Update"
 git push
