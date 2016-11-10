@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/docs/volunteer-categories', 'DocsController@volunteer');
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index');
 
@@ -61,11 +63,14 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Documentation Routes
     Route::get('/docs', 'DocsController@showRootPage');
-    Route::post('/docs', 'DocsController@store')->name('docs.store');
-    Route::get('/docs/create', 'DocsController@create')->name('docs.create');
-    Route::get('/docs/{page}/edit', 'DocsController@edit');
-    Route::patch('/docs/{page}', 'DocsController@update')->name('docs.update');
-    Route::get('/docs/volunteer-categories', 'DocsController@volunteer');
+
+    Route::group(['middleware' => ['role:admin']], function () {
+        Route::post('/docs', 'DocsController@store')->name('docs.store');
+        Route::get('/docs/create', 'DocsController@create')->name('docs.create');
+        Route::get('/docs/{page}/edit', 'DocsController@edit');
+        Route::patch('/docs/{page}', 'DocsController@update')->name('docs.update');
+    });
+
     Route::get('/docs/{page?}', 'DocsController@show');
 
     // Reports
