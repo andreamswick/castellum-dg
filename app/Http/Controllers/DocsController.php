@@ -105,7 +105,7 @@ class DocsController extends Controller
         $this->docs->save($clean, $request->docs_content);
 
         flash('Successfully created page, now remember to add it to a links section.', 'success');
-        return redirect('docs/' . $request->file_name);
+        return redirect('docs/' . $clean);
     }
 
     public function edit($page)
