@@ -1,6 +1,6 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
+    "name": "ams/castellum",
+    "description": "Castellum for FCCUCC DG.",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
@@ -12,7 +12,8 @@
         "spatie/laravel-permission": "^1.5",
         "maatwebsite/excel": "~2.1.0",
         "league/commonmark": "0.7.*",
-        "erusev/parsedown-extra": "0.7.0"
+        "erusev/parsedown-extra": "0.7.0",
+        "guzzlehttp/guzzle": "^6.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
